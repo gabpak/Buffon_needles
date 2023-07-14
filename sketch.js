@@ -47,8 +47,8 @@ function draw() {
   text("Number of lattes: " + lattes.length, CANVAS_WIDTH + 10, 80);
   text("Size of the lattes: " + distBetweenTwoLattes, CANVAS_WIDTH + 10, 100);
   if(needles.length > 0){
-    text("Closest Lattes (x): " + needles[needles.length - 1].nearestLatte(), CANVAS_WIDTH + 10, 140);
-    text("Distance (x):" + needles[needles.length - 1].calculDistanceBetweenClosestLatte(), CANVAS_WIDTH + 10, 160);
+    text("Closest Lattes (n°): " + needles[needles.length - 1].nearestLatte(), CANVAS_WIDTH + 10, 140);
+    text("Distance to: " + needles[needles.length - 1].calculDistanceBetweenClosestLatte(), CANVAS_WIDTH + 10, 160);
     text("CrossingLatte (x): " + needles[needles.length - 1].isCrossing, CANVAS_WIDTH + 10, 180);
   }
   pop();

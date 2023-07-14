@@ -64,7 +64,7 @@ class Needle{
         let dist = sinTheta * (this.len / 2);
 
         // Si distance r > tips alors ça ne touche pas
-
+        // BUG HERE
         if(this.calculDistanceBetweenClosestLatte() > dist){
             this.isCrossing = false;
             return false;
