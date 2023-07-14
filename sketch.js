@@ -8,6 +8,7 @@ let CanvasHeight = 600;
 let DEBUG = true;
 
 let largeurLatte = 100;
+let longueurAiguille = 100;
 let nbrAiguille = 0;
 
 let lenghtSlider; // Lenght of the aiguille
@@ -23,10 +24,11 @@ class Aiguille{
   constructor(){
     this.x = random(0, CanvasWidth);
     this.y = random(0, CanvasHeight);
-    this.angle = (PI / 2) + random(0, PI / 2); // Angle
-    //this.angle = (PI / 2);
-    this.randomColor = color(random(0, 255), random(0, 255), random(0, 255));
-    this.lenght = largeurLatte * 2;
+    this.angle = random(0, PI/2);
+    this.maxAngle = PI/2;
+    //this.color = color(random(0, 255), random(0, 255), random(0, 255));
+    this.color = color(0, 0, 0);
+    this.lenght = longueurAiguille;
     this.crossingLatte = false;
   }
 
@@ -34,9 +36,9 @@ class Aiguille{
     push();
     noStroke();
     translate(this.x, this.y);
-    rotate(this.angle);
-    fill(this.randomColor);
-    rect(-this.lenght / 4, -1, this.lenght / 2, 1);
+    rotate(this.angle + PI / 2); // NE PAS OUBLIER LE PI / 2 :'(
+    fill(this.color);
+    rect(-this.lenght / 2, -1, this.lenght, 1);
     pop();
   }
 
@@ -50,8 +52,11 @@ class Aiguille{
   }
 
   update(){ // Updating the aiguille in real time
-    this.lenght = lenghtSlider.value();
+    //this.lenght = lenghtSlider.value();
     //this.angle += 0.002;
+    if(this.angle > this.maxAngle){
+      this.angle = 0.0;
+    }
   }
 
   nearestLatte(){ // Function to found the neared Latte [0, 1, ..., n]
@@ -91,16 +96,10 @@ class Aiguille{
   }
 
   checkCrossingLatte(){
-    // Step 1 : Let's take the distance between the nearest latte and the angle.
-    let r = this.calculR();
     let angle = this.angle;
-    // Step 2 : Let's calcul the triangle side
-    // opposé = Sinus(0) * hyp
-    let op = sin(angle) * (this.lenght / 2); // A modifier car actuellement utilisé avec this.x & this.y translate ...
-
-
+    let hyp = longueurAiguille / 2;
+    let op = sin(radians(angle)) * hyp;
     return op;
-
   }
 
 }
@@ -156,14 +155,14 @@ function draw() {
   // Text n aiguille
   fill(0, 0, 0);
   text("Nombre d'aiguille : " + aiguilleArray.length, 850, 20);
-  text("Longueur des aiguilles : " + lenghtSlider.value() / 2, 850, 40);
+  //text("Longueur des aiguilles : " + lenghtSlider.value() / 2, 850, 40);
   text("Largeur des lattes : " + largeurLatte, 850, 60);
   if(DEBUG){
     if(aiguilleArray[0] != undefined){
       text("Nearest Latte: " + aiguilleArray[aiguilleArray.length - 1].nearestLatte(), 850, CanvasHeight - 180);
       text("r = " + aiguilleArray[aiguilleArray.length - 1].calculR(), 850, CanvasHeight - 160);
       text("Angle Theta: " + aiguilleArray[aiguilleArray.length - 1].angle, 850, CanvasHeight - 120);
-      text("Omega: " + aiguilleArray[aiguilleArray.length - 1].checkCrossingLatte(), 850, CanvasHeight - 100);
+      text("Op: " + aiguilleArray[aiguilleArray.length - 1].checkCrossingLatte(), 850, CanvasHeight - 100);
     }
     for(let i = 0; i < XCoordLatte.length; i++){
       text("Lattes[" + i + "] = " + XCoordLatte[i] , 850, CanvasHeight - 500 + i*18);
@@ -190,6 +189,10 @@ function addAiguilleEvent() {
 
 function switchDebugMode(){
     DEBUG = !DEBUG;
+}
+
+function radToDeg(rad){
+  return (rad * 180) / PI;
 }
 
 
