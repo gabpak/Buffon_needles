@@ -1,14 +1,16 @@
 class Needle{
-    constructor(x, y, len){
-        this.x = x;
-        this.y = y;
+    constructor(len){
+        this.x = random(0, CANVAS_WIDTH - distBetweenTwoLattes);
+        this.y = random(0, CANVAS_HEIGHT);
+
         this.theta = random(0, PI/2);
         this.thetaFlip = PI/2 + this.theta;
         this.len = len;
-        this.x1 = x + cos(this.theta) * (this.len / 2);
-        this.y1 = y + sin(this.theta) * (this.len / 2);
-        this.x2 = x - cos(this.theta) * (this.len / 2);
-        this.y2 = y - sin(this.theta) * (this.len / 2);
+        this.x1 = this.x + cos(this.theta) * (this.len / 2);
+        this.y1 = this.y + sin(this.theta) * (this.len / 2);
+        this.x2 = this.x - cos(this.theta) * (this.len / 2);
+        this.y2 = this.y - sin(this.theta) * (this.len / 2);
+        
         this.isCrossing = false;
     }
 
