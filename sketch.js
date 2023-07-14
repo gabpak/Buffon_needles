@@ -9,7 +9,6 @@ var lattes = []; // Array that contain the X position of each latte
 var lenNeedles = 100; // Length of the needles
 var needles = []; // Array that contain all the needles
 
-
 /* ------------------------------------------------------------------------ */
 
 
@@ -24,7 +23,6 @@ function setup() {
 
 function draw() {
   background(250);
-  //line(CANVAS_WIDTH, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
   // Let's draw the lattes
   for(let i = 0; i < lattes.length; i++){
@@ -33,6 +31,7 @@ function draw() {
 
   // Let's draw the needles
   for(let i = 0; i < needles.length; i++){
+    needles[i].isCrossingLatte();
     needles[i].draw();
     if(DEBUG){
       needles[i].drawDistanceBetweenLatte();
@@ -49,14 +48,16 @@ function draw() {
   if(needles.length > 0){
     text("Closest Lattes (n°): " + needles[needles.length - 1].nearestLatte(), CANVAS_WIDTH + 10, 140);
     text("Distance to: " + needles[needles.length - 1].calculDistanceBetweenClosestLatte(), CANVAS_WIDTH + 10, 160);
-    text("CrossingLatte (x): " + needles[needles.length - 1].isCrossing, CANVAS_WIDTH + 10, 180);
+    text("Hyp: " + needles[needles.length - 1].isCrossingLatte(), CANVAS_WIDTH + 10, 180);
+    //text("Angle: " + angle, CANVAS_WIDTH + 10, 200);
   }
   pop();
+
 }
 
 
 // Events mousse
 function mousePressed(){
   // If the mouse is pressed, we create a new needle
-  needles.push(new Needle(mouseX, mouseY, (PI/4), lenNeedles));
+  needles.push(new Needle(mouseX, mouseY, lenNeedles));
 }
