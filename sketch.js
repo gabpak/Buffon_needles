@@ -3,10 +3,12 @@ const DEBUG = false;
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
 
+var needlePerClick = 100;
+
 var distBetweenTwoLattes = 100; // Distance between two lattes
 var lattes = []; // Array that contain the X position of each latte
 
-var lenNeedles = 100; // Length of the needles
+var lenNeedles = 50; // Length of the needles
 var needles = []; // Array that contain all the needles
 
 /* ------------------------------------------------------------------------ */
@@ -49,7 +51,9 @@ function draw() {
     text("Closest Lattes (n°): " + needles[needles.length - 1].nearestLatte(), CANVAS_WIDTH + 10, 140);
     text("Distance to: " + needles[needles.length - 1].calculDistanceBetweenClosestLatte(), CANVAS_WIDTH + 10, 160);
     text("Hyp: " + needles[needles.length - 1].isCrossingLatte(), CANVAS_WIDTH + 10, 180);
-    //text("Angle: " + angle, CANVAS_WIDTH + 10, 200);
+    text("Crossing Needles: " + needlesCrossing() + " / " + needles.length, CANVAS_WIDTH + 10, 220);
+    text("Proba: " + needlesCrossing()/needles.length, CANVAS_WIDTH + 10, 240);
+
   }
   pop();
 
@@ -59,5 +63,18 @@ function draw() {
 // Events mousse
 function mousePressed(){
   // If the mouse is pressed, we create a new needle
-  needles.push(new Needle(mouseX, mouseY, lenNeedles));
+  for(let i = 0; i < needlePerClick; i++){
+    needles.push(new Needle(lenNeedles));
+  }
+  proba = calculProbability();
+}
+
+function needlesCrossing(){
+  let n = 0;
+  for(let i = 0; i < needles.length; i++){
+    if(needles[i].isCrossing){
+      n++;
+    }
+  }
+  return n;
 }
