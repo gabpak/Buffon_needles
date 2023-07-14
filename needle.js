@@ -2,15 +2,23 @@ class Needle{
     constructor(x, y, theta, len){
         this.x = x;
         this.y = y;
+        this.theta = theta;
+        this.len = len;
         this.x1 = x + cos(theta) * (len / 2);
         this.y1 = y + sin(theta) * (len / 2);
         this.x2 = x - cos(theta) * (len / 2);
         this.y2 = y - sin(theta) * (len / 2);
+        this.isCrossing = false;
     }
 
     draw(){
         push();
-        stroke(0);
+        if(this.isCrossingLatte()){
+            stroke(255, 0 , 0);
+        }
+        else{
+            stroke(0);
+        }
         line(this.x1, this.y1, this.x2, this.y2);
         ellipse(this.x, this.y, 5, 5);
         pop();
@@ -49,5 +57,21 @@ class Needle{
 
 
         pop();
+    }
+
+    isCrossingLatte(){
+        let sinTheta = sin(this.theta);
+        let dist = sinTheta * (this.len / 2);
+
+        // Si distance r > tips alors ça ne touche pas
+
+        if(this.calculDistanceBetweenClosestLatte() > dist){
+            this.isCrossing = false;
+            return false;
+        }
+        else{
+            this.isCrossing = true;
+            return true;
+        }
     }
 }
