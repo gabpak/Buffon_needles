@@ -1,11 +1,16 @@
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
 
-var distBetweenTwoLattes = 50; // Distance between two lattes
+var distBetweenTwoLattes = 100; // Distance between two lattes
 var lattes = []; // Array that contain the X position of each latte
 
 var numberOfNeedles = 1; // Number of needles
+var lenNeedles = 100; // Length of the needles
 var needles = []; // Array that contain all the needles
+
+
+/* ------------------------------------------------------------------------ */
+
 
 function setup() {
   createCanvas(CANVAS_WIDTH + 300, CANVAS_HEIGHT);
@@ -13,11 +18,6 @@ function setup() {
   // Let's create the lattes
   for(let i = 0; i < CANVAS_WIDTH / distBetweenTwoLattes; i++){
     lattes.push(i * distBetweenTwoLattes);
-  }
-
-  // Let's create the needles
-  for(let i = 0; i < numberOfNeedles; i++){
-    needles.push(new Needle(50));
   }
 }
 
@@ -34,4 +34,11 @@ function draw() {
   for(let i = 0; i < needles.length; i++){
     needles[i].draw();
   }
+}
+
+
+// Events mousse
+function mousePressed(){
+  // If the mouse is pressed, we create a new needle
+  needles.push(new Needle(mouseX, mouseY, 0, lenNeedles));
 }
