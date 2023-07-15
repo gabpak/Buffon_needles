@@ -48,7 +48,7 @@ class Needle{
 
     drawDistanceBetweenLatte(){
         push();
-        stroke(255, 0, 0);
+        stroke(169, 169, 169);
         if(this.x > lattes[this.nearestLatte()]){
             line(this.x, this.y, this.x - this.calculDistanceBetweenClosestLatte(), this.y);
             ellipse(this.x - this.calculDistanceBetweenClosestLatte(), this.y, 5);
@@ -70,7 +70,6 @@ class Needle{
         else{
             this.isCrossing = false;
         }
-
 
         return dist;
     }

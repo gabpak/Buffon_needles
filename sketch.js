@@ -4,10 +4,10 @@ const CANVAS_HEIGHT = 600;
 
 // CONST
 const DEBUG = true;
-const distBetweenTwoLattes = 100; // Distance between two lattes
-
-const needlePerClick = 1000;
+const needlePerClick = 1;
 const lenNeedles = 50; // Length of the needles
+
+const distBetweenTwoLattes = 100; // Distance between two lattes
 
 // Arrays
 var lattes = []; // Array that contain the X position of each latte
@@ -26,7 +26,7 @@ function setup() {
 }
 
 function draw() {
-  background(250);
+  background(255);
 
   // Let's draw the lattes
   for(let i = 0; i < lattes.length; i++){
@@ -45,19 +45,20 @@ function draw() {
   // Messages
   push();
   textSize(20);
-  text("Number of needles: " + needles.length, CANVAS_WIDTH + 10, 20);
-  text("Size of the needles: " + lenNeedles, CANVAS_WIDTH + 10, 40);
-  text("Number of lattes: " + lattes.length, CANVAS_WIDTH + 10, 80);
-  text("Size of the lattes: " + distBetweenTwoLattes, CANVAS_WIDTH + 10, 100);
+  text("Number of needles = " + needles.length, CANVAS_WIDTH + 10, 20);
+  text("Size of the needles = " + lenNeedles, CANVAS_WIDTH + 10, 40);
+  text("Number of slats = " + lattes.length, CANVAS_WIDTH + 10, 80);
+  text("Size of the slats = " + distBetweenTwoLattes, CANVAS_WIDTH + 10, 100);
   if(needles.length > 0){
-    text("Closest Lattes (n°): " + needles[needles.length - 1].nearestLatte(), CANVAS_WIDTH + 10, 140);
-    text("r: " + round(needles[needles.length - 1].calculDistanceBetweenClosestLatte(), 3), CANVAS_WIDTH + 10, 160);
-    text("r(theta): " + round(needles[needles.length - 1].isCrossingLatte(), 3), CANVAS_WIDTH + 10, 180);
-    text("Crossing Needles: " + needlesCrossing() + " / " + needles.length, CANVAS_WIDTH + 10, 220);
-    text("Proba: " + round(needlesCrossing()/needles.length, 5), CANVAS_WIDTH + 10, 240);
+    text("Last needle: ", CANVAS_WIDTH + 10, 140);
+    text("Closest slat (n°) = " + needles[needles.length - 1].nearestLatte(), CANVAS_WIDTH + 10, 160);
+    text("r = " + round(needles[needles.length - 1].calculDistanceBetweenClosestLatte(), 3), CANVAS_WIDTH + 10, 180);
+    text("r(theta) = " + round(needles[needles.length - 1].isCrossingLatte(), 3), CANVAS_WIDTH + 10, 200);
+    text("Crossing Needles =  " + needlesCrossing() + " / " + needles.length, CANVAS_WIDTH + 10, 240);
+    text("Proba = " + round(needlesCrossing()/needles.length, 5), CANVAS_WIDTH + 10, 260);
 
     text(round(needlesCrossing()/needles.length, 5)  + "= 2*" + lenNeedles + "/PI*" + distBetweenTwoLattes, CANVAS_WIDTH + 10, 380);
-    text("Approx of Pi: " + round(approxPi(), 4), CANVAS_WIDTH + 10, 400);
+    text("Approx of Pi = " + round(approxPi(), 4), CANVAS_WIDTH + 10, 400);
     print(DEBUG);
   }
   pop();
@@ -72,7 +73,7 @@ function mousePressed(){
     }
 }
 
-function needlesCrossing(){ // The number of needles Crossing
+function needlesCrossing(){ // The number of needles crossing a slate
   let n = 0;
   for(let i = 0; i < needles.length; i++){
     if(needles[i].isCrossing){
@@ -83,9 +84,9 @@ function needlesCrossing(){ // The number of needles Crossing
 }
 
 function approxPi(){
-  // Pi = 2 * a / l * p
-  // p = 2 * a / Pi * l
+  // Pi = (2 * lenNeedles) / (probability * latteDist)
   let pi = 0;
-  pi = (2 * lenNeedles) / ((needlesCrossing()/needles.length) * distBetweenTwoLattes);
+  let prob = (needlesCrossing()/needles.length);
+  pi = (2 * lenNeedles) / (prob * distBetweenTwoLattes);
   return pi;
 }
