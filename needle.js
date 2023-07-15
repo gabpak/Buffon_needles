@@ -57,8 +57,6 @@ class Needle{
             line(this.x, this.y, this.x + this.calculDistanceBetweenClosestLatte(), this.y);
             ellipse(this.x + this.calculDistanceBetweenClosestLatte(), this.y, 5);
         }
-
-
         pop();
     }
 
