@@ -59,7 +59,9 @@ function draw() {
 
     text(round(needlesCrossing()/needles.length, 5)  + "= 2*" + lenNeedles + "/PI*" + distBetweenTwoLattes, CANVAS_WIDTH + 10, 380);
     text("Approx of Pi = " + round(approxPi(), 4), CANVAS_WIDTH + 10, 400);
-    print(DEBUG);
+    let error = round(abs(approxPi() - PI), 4);
+    error = round((error * 100) / PI, 4);
+    text("Error = " + error + "%", CANVAS_WIDTH + 10, 440);
   }
   pop();
 
