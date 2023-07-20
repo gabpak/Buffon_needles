@@ -3,7 +3,7 @@ class Needle{
         this.x = random(0, CANVAS_WIDTH - distBetweenTwoLattes);
         this.y = random(0, CANVAS_HEIGHT);
 
-        this.theta = random(0, PI/2);
+        this.theta = random(-(PI/2), PI/2);
         this.thetaFlip = PI/2 + this.theta;
         this.len = len;
         this.x1 = this.x + cos(this.theta) * (this.len / 2);
@@ -23,7 +23,9 @@ class Needle{
             stroke(0);
         }
         line(this.x1, this.y1, this.x2, this.y2);
-        ellipse(this.x, this.y, 5, 5);
+        if(DEBUG){
+            ellipse(this.x, this.y, 5, 5);
+        }
         pop();
     }
 

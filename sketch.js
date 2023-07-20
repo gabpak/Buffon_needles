@@ -3,11 +3,11 @@ const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 600;
 
 // CONST
-const DEBUG = true;
-const needlePerClick = 1;
-const lenNeedles = 50; // Length of the needles
+const DEBUG = false;
+const needlePerClick = 1000;
+const lenNeedles = 25; // Length of the needles
 
-const distBetweenTwoLattes = 100; // Distance between two lattes
+const distBetweenTwoLattes = 50; // Distance between two lattes
 
 // Arrays
 var lattes = []; // Array that contain the X position of each latte
